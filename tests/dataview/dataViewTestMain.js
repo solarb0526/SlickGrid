@@ -3,26 +3,29 @@
 require.config({
     paths: {
         jquery: '../../lib/jquery-1.7.min',
-        qunit: '../../lib/qunit'
+        QUnit: '../../lib/qunit-1.11.0',
+        slickCore: '../../slick.core',
+        slickDataView: '../../slick.dataview'
     },
     shim: {
-       quint: {
+        QUnit: {
            exports: 'QUnit',
            init: function() {
                QUnit.config.autoload = false;
                QUnit.config.autostart = false;
            }
-       } 
+       }
     }
 });
 
 // require the unit tests.
 require(
-    ['jquery', 'qunit', './dataViewTest'],
+    ['jquery', 'QUnit'],
     function($, QUnit) {
-        alert(123);
-        // start QUnit.
-        QUnit.load();
-        QUnit.start();
+        require(['slickCore', 'slickDataView', './dataViewTest'], function(){
+            // start QUnit.
+            QUnit.load();
+            QUnit.start();
+        });
     }
 );
