@@ -73,29 +73,23 @@ define(
 
         test("requires an id on objects", function() {
             var dv = new Slick.Data.DataView();
-            try {
+            QUnit.assert.throws(function(){
                 dv.setItems([1,2,3]);
-                ok(false, "exception expected")
-            }
-            catch (ex) {}
+            }, 'exception expected', 'message');
         });
 
         test("requires a unique id on objects", function() {
             var dv = new Slick.Data.DataView();
-            try {
+            QUnit.assert.throws(function(){
                 dv.setItems([{id:0},{id:0}]);
-                ok(false, "exception expected")
-            }
-            catch (ex) {}
+            },'exception expected');
         });
 
         test("requires a unique id on objects (alternative idProperty)", function() {
             var dv = new Slick.Data.DataView();
-            try {
+            QUnit.assert.throws(function(){
                 dv.setItems([{uid:0},{uid:0}], "uid");
-                ok(false, "exception expected")
-            }
-            catch (ex) {}
+            },'exception expected');
         });
 
         test("events fired on setItems", function() {
@@ -124,21 +118,26 @@ define(
         });
 
         test("no events on setItems([])", function() {
+            var isNotTriggeredEvent = true;
             var dv = new Slick.Data.DataView();
-            dv.onRowsChanged.subscribe(function() { ok(false, "onRowsChanged called") });
-            dv.onRowCountChanged.subscribe(function() { ok(false, "onRowCountChanged called") });
-            dv.onPagingInfoChanged.subscribe(function() { ok(false, "onPagingInfoChanged called") });
+            dv.onRowsChanged.subscribe(function() { isNotTriggeredEvent = false; });
+            dv.onRowCountChanged.subscribe(function() { isNotTriggeredEvent = false; });
+            dv.onPagingInfoChanged.subscribe(function() { isNotTriggeredEvent = false; });
             dv.setItems([]);
             dv.refresh();
+            ok(isNotTriggeredEvent);
+
         });
 
         test("no events on setItems followed by refresh", function() {
+            var isNotTriggeredEvent = true;
             var dv = new Slick.Data.DataView();
             dv.setItems([{id:0},{id:1}]);
-            dv.onRowsChanged.subscribe(function() { ok(false, "onRowsChanged called") });
-            dv.onRowCountChanged.subscribe(function() { ok(false, "onRowCountChanged called") });
-            dv.onPagingInfoChanged.subscribe(function() { ok(false, "onPagingInfoChanged called") });
+            dv.onRowsChanged.subscribe(function() { isNotTriggeredEvent = false; });
+            dv.onRowCountChanged.subscribe(function() { isNotTriggeredEvent = false; });
+            dv.onPagingInfoChanged.subscribe(function() { isNotTriggeredEvent = false; });
             dv.refresh();
+            ok(isNotTriggeredEvent);
         });
 
         test("no refresh while suspended", function() {
@@ -518,25 +517,19 @@ define(
         module("addItem");
 
         test("must have id", function() {
-            var count = 0;
             var dv = new Slick.Data.DataView();
             dv.setItems([{id:0,val:0},{id:1,val:1},{id:2,val:2}]);
-            try {
+            QUnit.assert.throws(function(){
                 dv.addItem({val:1337});
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
+            });
         });
 
         test("must have id (custom)", function() {
-            var count = 0;
             var dv = new Slick.Data.DataView();
             dv.setItems([{uid:0,val:0},{uid:1,val:1},{uid:2,val:2}], "uid");
-            try {
+            QUnit.assert.throws(function(){
                 dv.addItem({id:3,val:1337});
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
+            });
         });
 
         test("basic", function() {
@@ -589,25 +582,20 @@ define(
         module("insertItem");
 
         test("must have id", function() {
-            var count = 0;
             var dv = new Slick.Data.DataView();
             dv.setItems([{id:0,val:0},{id:1,val:1},{id:2,val:2}]);
-            try {
+            QUnit.assert.throws(function(){
                 dv.insertItem(0,{val:1337});
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
+            });
         });
 
         test("must have id (custom)", function() {
             var count = 0;
             var dv = new Slick.Data.DataView();
             dv.setItems([{uid:0,val:0},{uid:1,val:1},{uid:2,val:2}], "uid");
-            try {
+            QUnit.assert.throws(function(){
                 dv.insertItem(0,{id:3,val:1337});
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
+            });
         });
 
         test("insert at the beginning", function() {
@@ -703,55 +691,37 @@ define(
         module("deleteItem");
 
         test("must have id", function() {
-            var count = 0;
             var dv = new Slick.Data.DataView();
             dv.setItems([{id:0,val:0},{id:1,val:1},{id:2,val:2}]);
-            try {
+            QUnit.assert.throws(function(){
                 dv.deleteItem(-1);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
-            try {
+            });
+            QUnit.assert.throws(function(){
                 dv.deleteItem(undefined);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
-            try {
+            });
+            QUnit.assert.throws(function(){
                 dv.deleteItem(null);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
-            try {
+            });
+            QUnit.assert.throws(function(){
                 dv.deleteItem(3);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
+            });
         });
 
         test("must have id (custom)", function() {
-            var count = 0;
             var dv = new Slick.Data.DataView();
             dv.setItems([{uid:0,id:-1,val:0},{uid:1,id:3,val:1},{uid:2,id:null,val:2}], "uid");
-            try {
+            QUnit.assert.throws(function(){
                 dv.deleteItem(-1);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
-            try {
+            });
+            QUnit.assert.throws(function(){
                 dv.deleteItem(undefined);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
-            try {
+            });
+            QUnit.assert.throws(function(){
                 dv.deleteItem(null);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
-            try {
+            });
+            QUnit.assert.throws(function(){
                 dv.deleteItem(3);
-                ok(false, "exception thrown");
-            }
-            catch (ex) {}
+            });
         });
 
         test("delete at the beginning", function() {
