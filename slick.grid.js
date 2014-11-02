@@ -37,7 +37,7 @@ if (typeof Slick === "undefined") throw "slick.core.js not loaded";
      * @class SlickGrid
      * @constructor
      * @param {Node}              container   Container node to create the grid in.
-     * @param {Array,Object}      data        An array of objects for databinding.
+     * @param {Array,Object}      data        An array of objects for data binding.
      * @param {Array}             columns     An array of column definitions.
      * @param {Object}            options     Grid options.
      **/
