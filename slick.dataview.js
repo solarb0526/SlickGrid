@@ -945,7 +945,7 @@
             function storeCellCssStyles(hash) {
                 hashById = {};
                 for (var row in hash) {
-                    if(!hash.hasOwnProperty(row)) continue;
+                    if (!hash.hasOwnProperty(row)) continue;
                     var id = rows[row][idProperty];
                     hashById[id] = hash[row];
                 }
@@ -957,7 +957,7 @@
                     ensureRowsByIdCache();
                     var newHash = {};
                     for (var id in hashById) {
-                        if(!hashById.hasOwnProperty(id)) continue;
+                        if (!hashById.hasOwnProperty(id)) continue;
                         var row = rowsById[id];
                         if (row != undefined) {
                             newHash[row] = hashById[id];

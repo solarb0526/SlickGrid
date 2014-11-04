@@ -2,7 +2,7 @@
  * Created by Administrator on 2014-11-03.
  */
 "use strict";
-define(function() {
+define(function () {
     function runTest(testSrc) {
         require.config({
             paths: {
@@ -27,10 +27,10 @@ define(function() {
             }
         });
         require( // require the unit tests.
-            ['jquery', 'QUnit'], function(){
-                require(['jqueryUI', 'jqueryEventDrag', 'jquerySimulate'], function(){
+            ['jquery', 'QUnit'], function () {
+                require(['jqueryUI', 'jqueryEventDrag', 'jquerySimulate'], function () {
                     require(['slickCore', 'slickDataView', 'slickGrid'], function () {
-                        require([testSrc], function(){
+                        require([testSrc], function () {
                             // start QUnit.
                             QUnit.load();
                             QUnit.start();
@@ -40,6 +40,7 @@ define(function() {
             }
         );
     }
+
     return runTest;
 });
 

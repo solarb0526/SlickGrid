@@ -33,7 +33,7 @@
         d["id"] = i;
         d["title"] = "Task " + i;
         d["percentComplete"] = i % 100;
-        d["duration"] =  Math.round(Math.random() * 14);
+        d["duration"] = Math.round(Math.random() * 14);
     }
 
     var dv = new Slick.Data.DataView({inlineFilters: true});
@@ -78,9 +78,9 @@
     for (var i = 0; i <= 100; i += 5) {
         dv.setFilterArgs(i);
         dv.setRefreshHints({
-            ignoreDiffsBefore:200,
-            ignoreDiffsAfter:300,
-            isFilterNarrowing:true
+            ignoreDiffsBefore: 200,
+            ignoreDiffsAfter: 300,
+            isFilterNarrowing: true
         });
         dv.refresh();
 
@@ -94,9 +94,9 @@
     for (var i = 100; i > 0; i -= 5) {
         dv.setFilterArgs(i);
         dv.setRefreshHints({
-            ignoreDiffsBefore:200,
-            ignoreDiffsAfter:300,
-            isFilterExpanding:true
+            ignoreDiffsBefore: 200,
+            ignoreDiffsAfter: 300,
+            isFilterExpanding: true
         });
         dv.refresh();
 
